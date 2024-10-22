@@ -1,4 +1,4 @@
-using CopilotWorkspace.Web;
+﻿using CopilotWorkspace.Web;
 using CopilotWorkspace.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);

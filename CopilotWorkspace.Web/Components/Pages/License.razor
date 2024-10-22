@@ -1,0 +1,22 @@
+@page "/license"
+
+<PageTitle>License</PageTitle>
+
+<h1>License</h1>
+
+<p>@licenseContent</p>
+
+@code {
+    private string licenseContent;
+
+    protected override async Task OnInitializedAsync()
+    {
+        licenseContent = await LoadLicenseContentAsync();
+    }
+
+    private async Task<string> LoadLicenseContentAsync()
+    {
+        var licenseFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LICENSE");
+        return await File.ReadAllTextAsync(licenseFilePath);
+    }
+}

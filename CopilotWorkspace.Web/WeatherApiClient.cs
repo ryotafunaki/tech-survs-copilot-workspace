@@ -1,4 +1,4 @@
-namespace CopilotWorkspace.Web;
+﻿namespace CopilotWorkspace.Web;
 
 public class WeatherApiClient(HttpClient httpClient)
 {
