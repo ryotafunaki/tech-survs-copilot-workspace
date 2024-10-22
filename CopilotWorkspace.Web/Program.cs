@@ -1,5 +1,8 @@
 ﻿using CopilotWorkspace.Web;
 using CopilotWorkspace.Web.Components;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,18 @@ builder.Services.AddHttpClient<WeatherApiClient>(client =>
         client.BaseAddress = new("https+http://apiservice");
     });
 
+// Add Entra ID authentication and authorization services
+builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
+
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = options.DefaultPolicy;
+});
+
+builder.Services.AddRazorPages()
+    .AddMicrosoftIdentityUI();
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -33,6 +48,10 @@ app.UseStaticFiles();
 app.UseAntiforgery();
 
 app.UseOutputCache();
+
+// Add Entra ID authentication and authorization middleware
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
