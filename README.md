@@ -14,5 +14,5 @@ This repository is technical survey of the  GitHub Copilot Workspace.
 
 1.  Start the application
     ```bash
-    dotnet run CopilotWorkspace.sln
+    dotnet run --project CopilotWorkspace.Web/CopilotWorkspace.Web.csproj
     ```
