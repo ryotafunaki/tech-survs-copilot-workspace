@@ -6,8 +6,12 @@
 
 <p>@licenseContent</p>
 
+<button @onclick="IncrementCount">Click me</button>
+<span>Count: @count</span>
+
 @code {
     private string licenseContent;
+    private int count = 0;
 
     protected override async Task OnInitializedAsync()
     {
@@ -18,5 +22,10 @@
     {
         var licenseFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LICENSE");
         return await File.ReadAllTextAsync(licenseFilePath);
+    }
+
+    private void IncrementCount()
+    {
+        count++;
     }
 }
